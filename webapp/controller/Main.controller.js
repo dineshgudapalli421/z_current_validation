@@ -16,18 +16,43 @@ sap.ui.define([
             oView.setModel(new JSONModel({
 				rowMode: "Fixed"
 			}), "ui");
-            //this._oAmsMultiInput = this.byId("idAms");
+            this._oAmsMultiInput = this.byId("idAms");
 
         },
         onSearch: function () {
             const oView = this.getView();
-            var Ams = this.getView().byId("idAms").getValue();
-            var Equipment = this.getView().byId("idEquipment").getValue();
-            if (Ams === "" && Equipment === "") {
-                return MessageBox.error("Either AMS or Equipment are required...");
+            var equipment = this.getView().byId("idEquipment").getValue();
+            var aTokens = this.getView().byId("idAms").getTokens();
+            var amsValue = "";
+            var aFilter = [];
+            if (aTokens.length === 0 && equipment === "") {
+                return MessageBox.error("Either AMS or Equipment are mandatory...");
             }
-            else if (Ams !== "" && Equipment !== "") {
-                return MessageBox.error("Only enter Either AMS or Equipment not both...");
+            else if (aTokens.length === 1) {
+                amsValue = aTokens[0].getText();
+                amsValue = amsValue.replace("=", "");
+                aFilter.push(new Filter("AMS", FilterOperator.EQ, amsValue));
+            }
+            else if (aTokens.length === 2) {
+                //return MessageBox.error("Select only one ams...");
+                var amsValue1 = aTokens[0].getText();
+                amsValue1 = amsValue1.replace("=", "");
+                var amsValue2 = aTokens[1].getText();
+                amsValue2 = amsValue2.replace("=", "");
+                aFilter.push(new Filter("AMS", FilterOperator.BT, amsValue1, amsValue2));
+
+            }
+            else if (aTokens.length > 2) {
+                //return MessageBox.error("Select only one ams...");               
+                for (let i = 0; i <= aTokens.length - 1; i++) {
+                    amsValue = aTokens[i].getText();
+                    amsValue = amsValue.replace("=", "");
+                    aFilter.push(new Filter("AMS", FilterOperator.EQ, amsValue));
+                }
+            }
+            
+            if (equipment !== "") {
+                aFilter.push(new Filter("Equipment", FilterOperator.EQ, equipment));
             }
 
             var periodFrom = this.getView().byId("idDTP1").getValue();
@@ -39,12 +64,8 @@ sap.ui.define([
             var fromDate = this.getDateFormat(this.byId("idDTP1").getDateValue());
             var toDate = this.getDateFormat(this.byId("idDTP2").getDateValue());
 
-            var aFilter = [];
-            if (Ams !== "") {
-                aFilter.push(new Filter("AMS", FilterOperator.EQ, Ams));
-            } else if (Equipment !== "") {
-                aFilter.push(new Filter("Equipment", FilterOperator.EQ, Equipment));
-            }
+           
+           
 
             aFilter.push(new Filter("Date", FilterOperator.BT, fromDate, toDate));
             var oModel = this.getOwnerComponent().getModel();
@@ -79,9 +100,10 @@ sap.ui.define([
 				name: "com.sap.lh.mr.zcurrentvalidation.fragment.ams"
 			}).then(function (oDialog) {
 				this._oAmsDialog = oDialog;
+                this.getView().addDependent(oDialog);
 				oDialog.setRangeKeyFields([{
 					label: "AMS",
-					key: "ams",
+					key: "Ams",
 					type: "string",
 					typeInstance: new TypeString({}, { maxLength: 10 })
 				}]);

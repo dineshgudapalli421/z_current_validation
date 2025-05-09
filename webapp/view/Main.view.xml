@@ -25,25 +25,25 @@
                                 <fb:FilterGroupItem name="AMS"
 								label="AMS" 
 								groupName="Group1" 
-								visibleInFilterBar="true" mandatory="true">
+								visibleInFilterBar="true" mandatory="false">
                                     <fb:control>
-                                        <!-- <MultiInput id="idAms"
+                                        <MultiInput id="idAms"
                                             valueHelpIconSrc="sap-icon://value-help" value="{filters>/idAms}"
                                             width="60%"  
-                                            valueHelpRequest="onAmsVHRequested"/> -->
-                                        <Input
+                                            valueHelpRequest="onAmsVHRequested"/>
+                                        <!-- <Input
                                              id="idAms" 
 											 width="90%"  
 											 showValueHelp="false"
 											 value="{filters>/idAms}">
-                                        </Input>
+                                        </Input> -->
                                         
                                     </fb:control>
                                 </fb:FilterGroupItem>
                                 <fb:FilterGroupItem name="Equipment" 
 								label="Equipment" 
 								groupName="Group1" 
-								visibleInFilterBar="true" mandatory="true">
+								visibleInFilterBar="true" mandatory="false">
                                     <fb:control>
                                         <Input
                                          id="idEquipment" 
