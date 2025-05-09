@@ -1,0 +1,100 @@
+<mvc:View controllerName="com.sap.lh.mr.zcurrentvalidation.controller.Main"
+    xmlns:vh="sap.ui.mdc.filterbar.vh" xmlns:smartfield="sap.ui.comp.smartfield"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    displayBlock="true"
+    xmlns:f="sap.f" 
+    xmlns:mdc="sap.ui.mdc"
+    xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" >
+    <f:DynamicPageHeader
+       
+    >
+        <f:content>
+            <fb:FilterBar
+                id="filterbar"
+                persistencyKey="myPersKey"
+                useToolbar="false"
+                search=".onSearch"
+                filterChange=".onFilterChange"
+                afterVariantLoad=".onAfterVariantLoad"
+                filterContainerWidth="13rem"
+                header="inLog"
+                class="sapUiSmallMarginBottom"
+            >
+              <fb:filterGroupItems>
+                                <fb:FilterGroupItem name="AMS"
+								label="AMS" 
+								groupName="Group1" 
+								visibleInFilterBar="true" mandatory="true">
+                                    <fb:control>
+                                        <!-- <MultiInput id="idAms"
+                                            valueHelpIconSrc="sap-icon://value-help" value="{filters>/idAms}"
+                                            width="60%"  
+                                            valueHelpRequest="onAmsVHRequested"/> -->
+                                        <Input
+                                             id="idAms" 
+											 width="90%"  
+											 showValueHelp="false"
+											 value="{filters>/idAms}">
+                                        </Input>
+                                        
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                                <fb:FilterGroupItem name="Equipment" 
+								label="Equipment" 
+								groupName="Group1" 
+								visibleInFilterBar="true" mandatory="true">
+                                    <fb:control>
+                                        <Input
+                                         id="idEquipment" 
+										 width="90%"  
+										 showValueHelp="false"
+										 value="{filters>/idEquipment}">
+                                        </Input>
+                                        <!-- <MultiInput id="idEquipment"
+                                            valueHelpIconSrc="sap-icon://value-help" value="{filters>/idEquipment}"
+                                            width="60%"  
+                                            valueHelpRequest="onEquipmentVHRequested"/> -->
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+									<fb:FilterGroupItem 
+										name="periodFrom" 
+										label="Period From" 
+										groupName="Group1" 
+										visibleInFilterBar="true" mandatory="true">
+											<fb:control>											
+                                           <DateTimePicker
+                                            id="idDTP1"
+                                            width="100%"
+                                            placeholder="Enter Date &amp; Time"/>
+                                                                                    
+											</fb:control>
+										</fb:FilterGroupItem>
+										 <!-- Profile Ratio -->
+										<fb:FilterGroupItem
+											name="periodTo"
+											label="Period To"
+											groupName="Group1"
+											visibleInFilterBar="true" mandatory="true">
+											<fb:control>
+												<DateTimePicker
+                                            id="idDTP2"
+                                            width="100%"
+                                            placeholder="Enter Date &amp; Time"/>
+											</fb:control>
+										</fb:FilterGroupItem>
+										 									
+                               
+                            </fb:filterGroupItems>
+						
+            </fb:FilterBar>
+        </f:content>
+		<f:content>
+        <core:Fragment
+                fragmentName="com.sap.lh.mr.zcurrentvalidation.fragment.items"  
+                type="XML"
+            />
+        </f:content>
+
+    </f:DynamicPageHeader>
+</mvc:View>

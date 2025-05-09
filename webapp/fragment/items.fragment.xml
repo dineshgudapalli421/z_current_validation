@@ -1,0 +1,72 @@
+
+<core:FragmentDefinition xmlns:core="sap.ui.core" 	xmlns="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+	xmlns:m="sap.m"
+>
+<!-- <m:ScrollContainer  width="100%" horizontal="true" vertical="true" focusable="true"> -->
+	<Table id="idTableCurrVal"
+				rows="{CurrentValidationModel>/}"
+				selectionMode="MultiToggle"
+				paste="onPaste"
+				rowMode="{ui>/rowMode}"
+				ariaLabelledBy="title" class="sapUiSmallMarginBottom">
+				<extension>
+					<m:OverflowToolbar style="Clear">
+						<m:Title id="title" text="Usage Current Validation"/>
+					</m:OverflowToolbar>
+				</extension>
+				<columns>
+					<Column width="11rem" resizable="true">
+						<m:Label text="Customer Number" />
+						<template>
+							<m:Text text="{CurrentValidationModel>CustomerNo}"/>
+						</template>
+					</Column>
+					<Column width="11rem" resizable="true">
+						<m:Label text="Customer Name" />
+						<template>
+							<m:Text text="{CurrentValidationModel>CustomerName}"/>
+						</template>
+					</Column>
+					<Column width="11rem" resizable="true">
+						<m:Label text="Customer Address" />
+						<template>
+							<m:Text text="{CurrentValidationModel>Address}"/>
+						</template>
+					</Column>
+					<Column width="11rem" resizable="true">
+						<m:Label text="Installation" />
+						<template>
+							<m:Text text="{CurrentValidationModel>Installation}"/>
+						</template>
+					</Column>
+					<Column width="11rem" resizable="true">
+						<m:Label text="Meter Number" />
+						<template>
+							<m:Text text="{CurrentValidationModel>MeterNo}"/>
+						</template>
+					</Column>
+					<Column width="11rem" resizable="true">
+						<m:Label text="Dev Location" />
+						<template>
+							<m:Text text="{CurrentValidationModel>DeviceLocation}"/>
+						</template>
+					</Column>
+					<Column width="11rem" resizable="true">
+						<m:Label text="Date/Time(Zero Interval)" />
+						<template>
+							<m:Text text="{CurrentValidationModel>DateTime}"/>
+						</template>
+					</Column>
+					<!-- <Column width="11rem" resizable="true">
+						<m:Label text="Message" />
+						<template>
+							<m:Text text="{CurrentValidationModel>Message}"/>
+						</template>
+					</Column> -->
+				</columns>
+			</Table>					
+<!-- </m:ScrollContainer> -->
+</core:FragmentDefinition>

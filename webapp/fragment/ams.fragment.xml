@@ -1,0 +1,14 @@
+<core:FragmentDefinition
+xmlns="sap.ui.comp.valuehelpdialog"
+xmlns:core="sap.ui.core">
+<ValueHelpDialog 
+        title="Ams"
+        ok=".onAmsVHOkPress"
+        cancel=".onAmsVHCancelPress"
+        key="ams"
+        descriptionKey="Ams"
+        afterClose=".onAmsVHAfterClose"
+        supportRanges="true"
+        supportRangesOnly="true"
+        maxConditions="1"/>
+</core:FragmentDefinition>
