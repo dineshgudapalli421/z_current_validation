@@ -31,7 +31,7 @@
 						</template>
 					</Column>
 					<Column width="11rem" resizable="true">
-						<m:Label text="Customer Address" />
+						<m:Label text="Service Address" />
 						<template>
 							<m:Text text="{CurrentValidationModel>Address}"/>
 						</template>
