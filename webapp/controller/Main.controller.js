@@ -89,7 +89,7 @@ sap.ui.define([
             });
         },
         getDateFormat: function (strDate) {
-            var oDateFormat = DateFormat.getDateTimeInstance({ pattern: "yyyy-MM-ddTHH:mm:ss" });
+            var oDateFormat = DateFormat.getDateTimeInstance({ pattern: "yyyy-MM-dd" });
             var formatDate = oDateFormat.format(strDate);
             return formatDate;
             //return "datetime" + formatDate ;

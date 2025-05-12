@@ -63,11 +63,13 @@
 										groupName="Group1" 
 										visibleInFilterBar="true" mandatory="true">
 											<fb:control>											
-                                           <DateTimePicker
+                                           <!-- <DateTimePicker
                                             id="idDTP1"
                                             width="100%"
-                                            placeholder="Enter Date &amp; Time"/>
-                                                                                    
+                                            placeholder="Enter Date &amp; Time"/> -->
+                                            <DatePicker
+                    id="idDTP1" width="100%"
+                    placeholder="Enter Date"/>                                        
 											</fb:control>
 										</fb:FilterGroupItem>
 										 <!-- Profile Ratio -->
@@ -77,10 +79,13 @@
 											groupName="Group1"
 											visibleInFilterBar="true" mandatory="true">
 											<fb:control>
-												<DateTimePicker
+												<!-- <DateTimePicker
                                             id="idDTP2"
                                             width="100%"
-                                            placeholder="Enter Date &amp; Time"/>
+                                            placeholder="Enter Date &amp; Time"/> -->
+                                            <DatePicker
+                    id="idDTP2" width="100%"
+                    placeholder="Enter Date"/>
 											</fb:control>
 										</fb:FilterGroupItem>
 										 									
