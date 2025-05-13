@@ -26,7 +26,15 @@ sap.ui.define([
             var amsValue = "";
             var aFilter = [];
             if (aTokens.length === 0 && equipment === "") {
-                return MessageBox.error("Either AMS or Equipment are mandatory...");
+                var ams = this.getView().byId("idAms").getValue();
+                if(ams === "")
+                {
+                    return MessageBox.error("Either AMS or Equipment are mandatory...");
+                }
+                else if(ams !== "")
+                {
+                    aFilter.push(new Filter("AMS", FilterOperator.EQ, ams));
+                }                
             }
             else if (aTokens.length === 1) {
                 amsValue = aTokens[0].getText();
