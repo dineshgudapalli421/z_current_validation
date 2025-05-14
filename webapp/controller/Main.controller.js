@@ -1,5 +1,5 @@
 sap.ui.define([
-   "sap/ui/core/mvc/Controller",
+    "sap/ui/core/mvc/Controller",
     "sap/ui/model/odata/v2/ODataModel",
     'sap/ui/model/Filter',
     'sap/ui/model/FilterOperator',
@@ -14,8 +14,8 @@ sap.ui.define([
         onInit() {
             const oView = this.getView();
             oView.setModel(new JSONModel({
-				rowMode: "Fixed"
-			}), "ui");
+                rowMode: "Fixed"
+            }), "ui");
             this._oAmsMultiInput = this.byId("idAms");
 
         },
@@ -27,14 +27,12 @@ sap.ui.define([
             var aFilter = [];
             if (aTokens.length === 0 && equipment === "") {
                 var ams = this.getView().byId("idAms").getValue();
-                if(ams === "")
-                {
-                    return MessageBox.error("Either AMS or Equipment are mandatory...");
+                if (ams === "") {
+                    return MessageBox.error("Either AMS or Equipment is mandatory...");
                 }
-                else if(ams !== "")
-                {
+                else if (ams !== "") {
                     aFilter.push(new Filter("AMS", FilterOperator.EQ, ams));
-                }                
+                }
             }
             else if (aTokens.length === 1) {
                 amsValue = aTokens[0].getText();
@@ -58,7 +56,7 @@ sap.ui.define([
                     aFilter.push(new Filter("AMS", FilterOperator.EQ, amsValue));
                 }
             }
-            
+
             if (equipment !== "") {
                 aFilter.push(new Filter("Equipment", FilterOperator.EQ, equipment));
             }
@@ -72,8 +70,8 @@ sap.ui.define([
             var fromDate = this.getDateFormat(this.byId("idDTP1").getDateValue());
             var toDate = this.getDateFormat(this.byId("idDTP2").getDateValue());
 
-           
-           
+
+
 
             aFilter.push(new Filter("Date", FilterOperator.BT, fromDate, toDate));
             var oModel = this.getOwnerComponent().getModel();
@@ -88,11 +86,18 @@ sap.ui.define([
                 success: function (response) {
                     oBusyDialog.close();
                     oJsonModel.setData(response.results);
+                    if (equipment !== "" && response.results.length > 0) {
+                        let meterNo = oJsonModel.oData[0].MeterNo;
+                        const errorMessage = oJsonModel.oData[0].Message;
+                        if (errorMessage !== "") {
+                            return MessageBox.error("Meter " + meterNo + " does not have Current channel(s)")
+                        }
+                    }
                     oView.byId("idTableCurrVal").setModel(oJsonModel, "CurrentValidationModel");
                 },
                 error: (oError) => {
                     oBusyDialog.close();
-                    console.error("Error:", oError);
+                    return MessageBox.error("Error:", oError);
                 }
             });
         },
@@ -103,32 +108,32 @@ sap.ui.define([
             //return "datetime" + formatDate ;
         },
         onAmsVHRequested: function () {
-			this._oAmsMultiInput = this.byId("idAms");
-			this.loadFragment({
-				name: "com.sap.lh.mr.zcurrentvalidation.fragment.ams"
-			}).then(function (oDialog) {
-				this._oAmsDialog = oDialog;
+            this._oAmsMultiInput = this.byId("idAms");
+            this.loadFragment({
+                name: "com.sap.lh.mr.zcurrentvalidation.fragment.ams"
+            }).then(function (oDialog) {
+                this._oAmsDialog = oDialog;
                 this.getView().addDependent(oDialog);
-				oDialog.setRangeKeyFields([{
-					label: "AMS",
-					key: "Ams",
-					type: "string",
-					typeInstance: new TypeString({}, { maxLength: 10 })
-				}]);
-				oDialog.setTokens(this._oAmsMultiInput.getTokens());
-				oDialog.open();
-			}.bind(this));
-		},
-		onAmsVHOkPress: function (oEvent) {
-			var aTokens = oEvent.getParameter("tokens");
-			this._oAmsMultiInput.setTokens(aTokens);
-			this._oAmsDialog.close();
-		},
-		onAmsVHCancelPress: function () {
-			this._oAmsDialog.close();
-		},
-		onAmsVHAfterClose: function () {
-			this._oAmsDialog.destroy();
-		},
+                oDialog.setRangeKeyFields([{
+                    label: "AMS",
+                    key: "Ams",
+                    type: "string",
+                    typeInstance: new TypeString({}, { maxLength: 10 })
+                }]);
+                oDialog.setTokens(this._oAmsMultiInput.getTokens());
+                oDialog.open();
+            }.bind(this));
+        },
+        onAmsVHOkPress: function (oEvent) {
+            var aTokens = oEvent.getParameter("tokens");
+            this._oAmsMultiInput.setTokens(aTokens);
+            this._oAmsDialog.close();
+        },
+        onAmsVHCancelPress: function () {
+            this._oAmsDialog.close();
+        },
+        onAmsVHAfterClose: function () {
+            this._oAmsDialog.destroy();
+        },
     });
 });
